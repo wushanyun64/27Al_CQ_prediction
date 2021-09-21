@@ -1,0 +1,75 @@
+default_language_version:
+  python: python
+default_stages: [commit, push, manual]
+repos:
+  - repo: https://github.com/ambv/black
+    rev: 21.8b0
+    hooks:
+      - id: black
+        name: black
+        description: "Black: The uncompromising Python code formatter"
+        entry: black
+        language: python
+        minimum_pre_commit_version: 2.9.2
+        require_serial: true
+        types_or: [python, pyi]
+      - id: black-jupyter
+        name: black-jupyter
+        description:
+          "Black: The uncompromising Python code formatter (with Jupyter Notebook support)"
+        entry: black
+        language: python
+        minimum_pre_commit_version: 2.9.2
+        require_serial: true
+        types_or: [python, pyi, jupyter]
+        additional_dependencies: [".[jupyter]"]
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1
+    hooks:
+      - id: check-yaml
+        language: python
+      - id: fix-encoding-pragma
+        language: python
+      - id: check-docstring-first
+        language: python
+      - id: end-of-file-fixer
+        language: python
+        exclude: docs/notebooks/
+      - id: trailing-whitespace
+        language: python
+        types: [text]
+      - id: debug-statements
+        name: Debug Statements (Python)
+        description: Check for debugger imports and py37+ `breakpoint()` calls in python source.
+        entry: debug-statement-hook
+        language: python
+        types: [python]
+
+  - repo: https://gitlab.com/pycqa/flake8
+    rev: "3.9.2"
+    hooks:
+      - id: flake8
+        language: python
+        args:
+          [
+            "--ignore=E402",
+            "--filename=*.pyx, *py",
+            "--max-line-length=100",
+            "--max-complexity=8",
+            "--select=B,C,E,F,W,T,N8",
+            "--count",
+            "--statistics",
+          ]
+
+  - repo: https://github.com/asottile/reorder_python_imports
+    rev: v2.6.0
+    hooks:
+      - id: reorder-python-imports
+        name: Reorder python imports
+        description: This hook reorders imports in python files.
+        entry: reorder-python-imports
+        language: python
+        types: [python]
+        minimum_pre_commit_version: "0.15.0"
+        exclude: (examples_source|fitting_source|setup.py)
