@@ -17,3 +17,9 @@ Here are the prediction results for this model and SOAP model.
 ![test_result_SOAP](./figures/27Al_RF_testset_SOAP_101521.png)
 
 **Figure 2** Random forest prediction of CQ with SOAP.  
+
+## Dataset
+
+The dataset is consist of 1800 <sup>27</sup>Al containing structures of 4, 5 and 6 coordination. Most Al materials have a local geometry of tetrahedron (T:4), trigonal-bipyramidical (T:5) or octahedral (O:6), thus these are the geometries considered in this dataset. The distribution of geometries is showed below:
+
+![geo_dist](./figures/geo_dist.png)
