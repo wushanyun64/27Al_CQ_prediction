@@ -54,15 +54,19 @@ def zip_nmr_structure(struc_tensor):
                 NMR_struc.get_species_features(),orient="index"
             )
             nmr = pd.DataFrame(sample["tensors"]).set_index("site_index")
-            nmr = nmr.loc[:, "diso":"CQ"]
+            nmr = nmr.loc[:, ["diso","etaQ","CQ","max_ce"]]
             nmr["CQ"] = abs(nmr["CQ"])  # Get absolute values for all the CQ
             sample_table = pd.concat(
                 [
                     nmr,
                     first_bond_length["fbl_average"],
                     first_bond_length["fbl_std"],
+                    first_bond_length['fbl_max'],
+                    first_bond_length['fbl_min'],
                     first_bond_angle["fba_average"],
                     first_bond_angle["fba_std"],
+                    first_bond_angle["fba_max"],
+                    first_bond_angle["fba_min"],
                     l_strain["longitudinal_strain"],
                     s_strain["shear_strain"],
                     di["DI"],
@@ -84,3 +88,12 @@ def zip_nmr_structure(struc_tensor):
     )
     print("error_messages:\n", error_message)
     return table
+
+def get_composition(structure):
+    """
+    Get the atomic composition of a cetain structure
+    """
+    atom_list = []
+    for site in structure.sites:
+        atom_list.append(site.specie.symbol)
+    return (list(set(atom_list)))

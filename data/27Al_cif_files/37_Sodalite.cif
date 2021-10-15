@@ -1,0 +1,67 @@
+data_37_Sodalite
+_audit_creation_date              2021-06-14
+_audit_creation_method            'Materials Studio'
+_symmetry_space_group_name_H-M    'P-43N'
+_symmetry_Int_Tables_number       218
+_symmetry_cell_setting            cubic
+loop_
+_symmetry_equiv_pos_as_xyz
+  x,y,z
+  -x,-y,z
+  -x,y,-z
+  x,-y,-z
+  z,x,y
+  z,-x,-y
+  -z,-x,y
+  -z,x,-y
+  y,z,x
+  -y,z,-x
+  y,-z,-x
+  -y,-z,x
+  y+1/2,x+1/2,z+1/2
+  -y+1/2,-x+1/2,z+1/2
+  y+1/2,-x+1/2,-z+1/2
+  -y+1/2,x+1/2,-z+1/2
+  x+1/2,z+1/2,y+1/2
+  -x+1/2,z+1/2,-y+1/2
+  -x+1/2,-z+1/2,y+1/2
+  x+1/2,-z+1/2,-y+1/2
+  z+1/2,y+1/2,x+1/2
+  z+1/2,-y+1/2,-x+1/2
+  -z+1/2,y+1/2,-x+1/2
+  -z+1/2,-y+1/2,x+1/2
+_cell_length_a                    8.9707
+_cell_length_b                    8.9707
+_cell_length_c                    8.9707
+_cell_angle_alpha                 90.0000
+_cell_angle_beta                  90.0000
+_cell_angle_gamma                 90.0000
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+O5     O     0.06251   0.35062   0.63920   0.00000  Uiso   1.00
+Na1    Na    0.17753   0.17753   0.17753   0.00000  Uiso   1.00
+Al2    Al    0.00000   0.50000   0.25000   0.00000  Uiso   1.00
+Si3    Si    0.00000   0.25000   0.50000   0.00000  Uiso   1.00
+Cl4    Cl    0.00000   0.00000   0.00000   0.00000  Uiso   1.00
+loop_
+_geom_bond_atom_site_label_1
+_geom_bond_atom_site_label_2
+_geom_bond_distance
+_geom_bond_site_symmetry_2
+_ccdc_geom_bond_type
+O5     Si3     1.640   .     S
+O5     Al2     1.760   3_556 S
+Al2    O5      1.760   3_556 S
+Al2    O5      1.760   4_566 S
+Al2    O5      1.760   13_454 S
+Al2    O5      1.760   14_554 S
+Si3    O5      1.640   3_556 S
+Si3    O5      1.640   22_455 S
+Si3    O5      1.640   24    S

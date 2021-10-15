@@ -1,0 +1,50 @@
+data_18_Jakobssonite
+_audit_creation_date              2021-06-14
+_audit_creation_method            'Materials Studio'
+_symmetry_space_group_name_H-M    'P21/C'
+_symmetry_Int_Tables_number       14
+_symmetry_cell_setting            monoclinic
+loop_
+_symmetry_equiv_pos_as_xyz
+  x,y,z
+  -x,y+1/2,-z+1/2
+  -x,-y,-z
+  x,-y+1/2,z+1/2
+_cell_length_a                    5.4200
+_cell_length_b                    9.9697
+_cell_length_c                    7.4223
+_cell_angle_alpha                 90.0000
+_cell_angle_beta                  109.8963
+_cell_angle_gamma                 90.0000
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+Ca1    Ca    0.47408   0.01777   0.74579   0.00000  Uiso   1.00
+Al2    Al    0.10133   0.24741   0.39975   0.00000  Uiso   1.00
+F3     F     0.12130   0.61227   0.18118   0.00000  Uiso   1.00
+F4     F     0.13478   0.21621   0.65866   0.00000  Uiso   1.00
+F5     F     0.15701   0.63551   0.64192   0.00000  Uiso   1.00
+F6     F     0.34790   0.11890   0.98714   0.00000  Uiso   1.00
+F7     F     0.37276   0.12388   0.44481   0.00000  Uiso   1.00
+loop_
+_geom_bond_atom_site_label_1
+_geom_bond_atom_site_label_2
+_geom_bond_distance
+_geom_bond_site_symmetry_2
+_ccdc_geom_bond_type
+Al2    F4      1.894   .     S
+Al2    F7      1.860   .     S
+Al2    F3      1.772   2_545 S
+Al2    F6      1.842   4_554 S
+Al2    F5      1.767   3_566 S
+Al2    F4      1.894   4_554 S
+F3     Al2     1.772   2     S
+F4     Al2     1.894   4     S
+F5     Al2     1.767   3_566 S
+F6     Al2     1.842   4     S

@@ -25,11 +25,9 @@ property_symbol_map={ # map the name of properties to their symbols.
     "electronic_structure":"N_v", 
     "atomic_radius_calculated":"r_cal",
     "van_der_waals_radius":"r_vdw",
-    # "poissons_ratio":"nu",
     "thermal_conductivity":"lambda",
     "melting_point":"TM",
     "boiling_point":"TB",
-    # "critical_temperature":"TC",
     "ionization_energy":"IE1", #First ionization energy
 }
 
@@ -549,15 +547,6 @@ class NMR_local:
             second_coord_dict[index] = second_coord_info
         return second_coord_dict
 
-    # def get_matminer_features(self):
-    #     feat= MultipleFeaturizer([
-    #         BondOrientationalParameter(),
-    #     ])
-    #     labels=feat.feature_labels()
-    #     mt_features_list = []
-    #     for index in self._atom_list:
-    #         mt_features = feat.featurize(self.structure,index)
-    #         mt_features_list.append(dict(zip(labels,mt_features)))
 
     def get_species_features(self):
         """[summary]
@@ -616,15 +605,12 @@ class NMR_local:
         std = properties_matrix.std(axis=0)
         max_ = properties_matrix.max(axis=0)
         min_ = properties_matrix.min(axis=0)
-
-        #get average deviation of the properties for the polyhedron
-        center_site = self.structure[center_index]
-        center_coords = self.structure[center_index].coords
-        center_properties = self._get_site_properties(center_site)
-        properties_dev = (properties_matrix-center_properties).sum(axis=0)*(1/N)
         
         #get average deviation of the properties normalized by r_cn 
         # (distance between center and neighbour)
+        center_site = self.structure[center_index]
+        center_coords = self.structure[center_index].coords
+        center_properties = self._get_site_properties(center_site)
         r_cn_rev_list = np.reciprocal(np.linalg.norm(neighbour_coords - center_coords,axis=1))
         dev_matrix = (properties_matrix-center_properties)*(1/N)
         properties_dev_r = (dev_matrix.T*r_cn_rev_list).T.sum(axis=0)
@@ -638,18 +624,19 @@ class NMR_local:
             matrix_list.append(np.outer(properties_all[:, i],properties_all[:, i]))
         coords_all = np.vstack([neighbour_coords,center_coords])
         dis_matrix_rev = np.reciprocal(distance_matrix(coords_all,coords_all))
-        #Fill diagonal of reciprocal distance matrix with 1
+        #Fill diagonal of reciprocal distance matrix with P_i^2 
         np.fill_diagonal(dis_matrix_rev,1) 
         #get the singular values from alchemical matrix 
         alchemical_s = []
         for pm in matrix_list: #pm property matrix
             alchemical_matrix = np.multiply(pm,dis_matrix_rev)
             svd = np.linalg.svd(alchemical_matrix,full_matrices=False)
+            #store the first 5 singular values
             alchemical_s.append(svd[1][:5])
         
         # Get a flatened vector of all property features
         statistics_flat = np.hstack([means,std,max_,min_])
         alchemical_s_flat = np.array(alchemical_s).flatten()
-        properties_dev_flat = np.hstack([properties_dev,properties_dev_r])
+        properties_dev_flat = np.hstack([properties_dev_r])
         result = np.hstack([statistics_flat,properties_dev_flat,alchemical_s_flat])
         return(result)

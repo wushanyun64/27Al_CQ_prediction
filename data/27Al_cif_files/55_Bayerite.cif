@@ -1,0 +1,75 @@
+data_55_Bayerite
+_audit_creation_date              2021-06-14
+_audit_creation_method            'Materials Studio'
+_symmetry_space_group_name_H-M    'P21/C'
+_symmetry_Int_Tables_number       14
+_symmetry_cell_setting            monoclinic
+loop_
+_symmetry_equiv_pos_as_xyz
+  x,y,z
+  -x,y+1/2,-z+1/2
+  -x,-y,-z
+  x,-y+1/2,z+1/2
+_cell_length_a                    5.1235
+_cell_length_b                    8.7628
+_cell_length_c                    10.7788
+_cell_angle_alpha                 90.0000
+_cell_angle_beta                  118.1020
+_cell_angle_gamma                 90.0000
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+Al1    Al    0.03745   0.16757   0.50364   0.00000  Uiso   1.00
+Al2    Al    0.46901   0.66552   0.49627   0.00000  Uiso   1.00
+H3     H     0.11703   0.20584   0.29521   0.00000  Uiso   1.00
+H4     H     0.16818   0.58345   0.61399   0.00000  Uiso   1.00
+H5     H     0.20665   0.59874   0.85239   0.00000  Uiso   1.00
+H6     H     0.24413   0.00586   0.79374   0.00000  Uiso   1.00
+H7     H     0.43313   0.53917   0.12745   0.00000  Uiso   1.00
+H8     H     0.47195   0.23291   0.21131   0.00000  Uiso   1.00
+O9     O     0.15881   0.69354   0.88366   0.00000  Uiso   1.00
+O10    O     0.23388   0.51189   0.11032   0.00000  Uiso   1.00
+O11    O     0.24675   0.17433   0.39315   0.00000  Uiso   1.00
+O12    O     0.25383   0.67868   0.60263   0.00000  Uiso   1.00
+O13    O     0.26391   0.00976   0.88900   0.00000  Uiso   1.00
+O14    O     0.33993   0.19678   0.11557   0.00000  Uiso   1.00
+loop_
+_geom_bond_atom_site_label_1
+_geom_bond_atom_site_label_2
+_geom_bond_distance
+_geom_bond_site_symmetry_2
+_ccdc_geom_bond_type
+Al1    O11     1.943   .     S
+Al1    O9      1.921   2_546 S
+Al1    O14     1.873   4     S
+Al1    O10     1.928   4     S
+Al1    O12     1.935   3_566 S
+Al1    O10     1.922   2_545 S
+Al2    O12     1.932   .     S
+Al2    O9      1.925   4_564 S
+Al2    O11     1.969   3_666 S
+Al2    O13     1.912   4_554 S
+Al2    O13     1.916   2_656 S
+Al2    O14     1.897   2_655 S
+H3     O11     0.986   .     S
+H4     O12     0.977   .     S
+H5     O9      0.970   .     S
+H6     O13     0.984   .     S
+H7     O10     0.978   .     S
+H8     O14     0.982   .     S
+O9     Al1     1.921   2_556 S
+O9     Al2     1.925   4_565 S
+O10    Al1     1.928   4_554 S
+O10    Al1     1.922   2     S
+O11    Al2     1.969   3_666 S
+O12    Al1     1.935   3_566 S
+O13    Al2     1.912   4     S
+O13    Al2     1.916   2_646 S
+O14    Al1     1.873   4_554 S
+O14    Al2     1.897   2_645 S

@@ -1,0 +1,46 @@
+data_170_Margarite
+_audit_creation_date              2021-06-16
+_audit_creation_method            'Materials Studio'
+_symmetry_space_group_name_H-M    ' '
+_symmetry_Int_Tables_number       0
+_symmetry_cell_setting            monoclinic
+loop_
+_symmetry_equiv_pos_as_xyz
+  x,y,z
+  y,x,z+1/2
+_cell_length_a                    5.1568
+_cell_length_b                    5.1568
+_cell_length_c                    19.4143
+_cell_angle_alpha                 92.8017
+_cell_angle_beta                  92.8017
+_cell_angle_gamma                 120.0413
+loop_
+_atom_site_label
+_atom_site_type_symbol
+_atom_site_fract_x
+_atom_site_fract_y
+_atom_site_fract_z
+_atom_site_U_iso_or_equiv
+_atom_site_adp_type
+_atom_site_occupancy
+Ca1    Ca   -0.09376   0.09318   0.75082   0.00000  Uiso   1.00
+Al2    Al   -0.39274   0.46849   0.85971   0.00000  Uiso   1.00
+Al3    Al   -0.16525   0.66528   0.50085   0.00000  Uiso   1.00
+Al4    Al    0.16844   0.33294   0.50094   0.00000  Uiso   1.00
+Al5    Al    0.19189   0.70828   0.64219   0.00000  Uiso   1.00
+Si6    Si   -0.19218   0.28860   0.35635   0.00000  Uiso   1.00
+Si7    Si    0.39187   0.53519   0.14548   0.00000  Uiso   1.00
+H8     H    -0.02386   0.29041   0.93868   0.00000  Uiso   1.00
+H9     H     0.02049   0.71060   0.06229   0.00000  Uiso   1.00
+O10    O    -0.41322   0.48559   0.94855   0.00000  Uiso   1.00
+O11    O    -0.02112   0.10921   0.94964   0.00000  Uiso   1.00
+O12    O    -0.13342   0.35545   0.44043   0.00000  Uiso   1.00
+O13    O    -0.26137   0.53766   0.32259   0.00000  Uiso   1.00
+O14    O     0.10682   0.31956   0.32169   0.00000  Uiso   1.00
+O15    O    -0.04746   0.51524   0.83277   0.00000  Uiso   1.00
+O16    O    -0.13380   0.66348   0.68044   0.00000  Uiso   1.00
+O17    O     0.07338   0.50016   0.16917   0.00000  Uiso   1.00
+O18    O     0.27680   0.44536   0.67900   0.00000  Uiso   1.00
+O19    O     0.12415   0.62553   0.55327   0.00000  Uiso   1.00
+O20    O     0.01596   0.89167   0.05211   0.00000  Uiso   1.00
+O21    O     0.39950   0.51561   0.06143   0.00000  Uiso   1.00
