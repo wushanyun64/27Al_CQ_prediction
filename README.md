@@ -20,7 +20,7 @@ The dataset for the training was obtained from the [Materials Project][1]. The d
 
 ![geo_dist](./figures/geo_dist.png)
 
-**Figure 4** Geometry distribution of the <sup>27</sup>Al dataset. 
+**Figure 2** Geometry distribution of the <sup>27</sup>Al dataset. 
 
 All the structures in the dataset was accompanied with density functional theory (DFT) calculated NMR parameters for all sites, the calculations were perform with [VASP][2] in a high-throughput manner. 
 
@@ -38,11 +38,11 @@ Here are the prediction results for this model and SOAP model on the test set.
 
 ![test_result](./figures/test_r2_98_chemenv_split.png)
 
-**Figure 2** Random forest prediction of CQ with the features from this work.  
+**Figure 3** Random forest prediction of CQ with the features from this work.  
 
 ![test_result_SOAP](./figures/27Al_RF_testset_SOAP_101521.png)
 
-**Figure 3** Random forest prediction of CQ with SOAP.  
+**Figure 4** Random forest prediction of CQ with SOAP.  
 
 ## Reference
 
