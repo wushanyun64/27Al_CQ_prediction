@@ -22,7 +22,7 @@ def struc_to_cif(structure, filename):
     cifwriter = CifWriter(structure)
     cifwriter.write_file(file_dir)
 
-def zip_nmr_structure(struc_tensor):
+def features_gen(struc_tensor):
     """
     Combine the NMR values and structural parameters into one table.
     """
