@@ -46,8 +46,8 @@ Here are the prediction results for this model and SOAP model on the test set.
 
 ### References
 
-* [1]: https://materialsproject.org/
+* [1] https://materialsproject.org/
 
-* [2]: https://www.vasp.at/
+* [2] https://www.vasp.at/
 
-* [3]: https://singroup.github.io/dscribe/0.3.x/tutorials/soap.html
+* [3] https://singroup.github.io/dscribe/0.3.x/tutorials/soap.html
