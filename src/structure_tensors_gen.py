@@ -26,6 +26,7 @@ def get_structure_tensors(data):
             'etaQ',
             'CQ',
             'site_index',
+            'structure_index',
             'site_coord',
         }
     }
@@ -34,14 +35,14 @@ def get_structure_tensors(data):
         data (list): list of data containing structure and NMR raw tensor.
     """
     compounds = []
-    #     c_index=0
+    structure_index=0
     for compound in tqdm(data, position=0):
         if compound == {}:
             continue
         tensors = []
         site_index = 0
         structure = ST.from_dict(compound["structure"])
-        #         structure.add_oxidation_state_by_guess() ##Very time comsuing, comment out for now
+
         for site in structure.sites:
             lengthes = []
             if site.species_string[:2] == "Al":
@@ -59,9 +60,11 @@ def get_structure_tensors(data):
                     "etaQ": efg.asymmetry,
                     "CQ": efg.coupling_constant(specie="Al"),
                     "site_index": site_index,
+                    "structure_index":structure_index,
                     "site_coord": list(site.coords),
                 }
                 tensors.append(tensor)
             site_index += 1
+        structure_index+=1
         compounds.append({"structure": structure, "tensors": tensors})
     return compounds

@@ -39,14 +39,14 @@ def features_gen(struc_tensor):
             first_bond_angle = pd.DataFrame.from_dict(
                 NMR_struc.get_first_bond_angle(), orient="index"
             )
-            l_strain = pd.DataFrame.from_dict(
-                NMR_struc.get_longitudinal_strain(),
-                orient="index",
-                columns=["longitudinal_strain"],
-            )
-            s_strain = pd.DataFrame.from_dict(
-                NMR_struc.get_shear_strain(), orient="index", columns=["shear_strain"]
-            )
+            # l_strain = pd.DataFrame.from_dict(
+            #     NMR_struc.get_longitudinal_strain(),
+            #     orient="index",
+            #     columns=["longitudinal_strain"],
+            # )
+            # s_strain = pd.DataFrame.from_dict(
+            #     NMR_struc.get_shear_strain(), orient="index", columns=["shear_strain"]
+            # )
             di = pd.DataFrame.from_dict(
                 NMR_struc.get_DI(), orient="index", columns=["DI"]
             )
@@ -54,7 +54,7 @@ def features_gen(struc_tensor):
                 NMR_struc.get_species_features(),orient="index"
             )
             nmr = pd.DataFrame(sample["tensors"]).set_index("site_index")
-            nmr = nmr.loc[:, ["diso","etaQ","CQ","max_ce"]]
+            nmr = nmr.loc[:, ["max_ce","structure_index","diso","etaQ","CQ"]]
             nmr["CQ"] = abs(nmr["CQ"])  # Get absolute values for all the CQ
             sample_table = pd.concat(
                 [
@@ -67,8 +67,8 @@ def features_gen(struc_tensor):
                     first_bond_angle["fba_std"],
                     first_bond_angle["fba_max"],
                     first_bond_angle["fba_min"],
-                    l_strain["longitudinal_strain"],
-                    s_strain["shear_strain"],
+                    # l_strain["longitudinal_strain"],
+                    # s_strain["shear_strain"],
                     di["DI"],
                     alchemical_features,
                 ],
