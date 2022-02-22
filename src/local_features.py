@@ -23,7 +23,7 @@ property_symbol_map={ # map the name of properties to their symbols.
     "electron_affinity":"EA",
     "X":"X",
     "electronic_structure":"N_v", 
-    "atomic_radius_calculated":"r_cal",
+    "average_ionic_radius":"r_ion",
     "van_der_waals_radius":"r_vdw",
     "thermal_conductivity":"lambda",
     "melting_point":"TM",
