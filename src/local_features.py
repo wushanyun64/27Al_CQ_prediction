@@ -549,7 +549,8 @@ class NMR_local:
 
 
     def get_species_features(self):
-        """[summary]
+        """
+
         """
         first_coord_dict = self.first_neighbours
         features_dict = {}
@@ -573,13 +574,13 @@ class NMR_local:
     @staticmethod
     def _get_site_properties(site):
         """
-        something here.
+        Get the properties listed in property_symbol_map for the type of site provided. 
 
         Note:electronic_structure here will be processed into representing the number of valence 
         electrons (N_v).
 
         Args:
-            site ([type]): [description]
+            site (pymatgen.site): the pymatgen site class. 
         """
         property_list = []
         for k in property_symbol_map:
