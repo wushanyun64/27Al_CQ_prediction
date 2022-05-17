@@ -14,13 +14,19 @@ def get_species(data):
 
     Args:
         data (dict): structure_tensors dict.
+
+    Returns:
+        species_list: list od all occurred species.
+        combinations: list of compositions for each site. 
     """
-    occur = []
+    species_list = []
+    combinations = []
     for structure_tensor in data:
         compo = get_composition(structure_tensor['structure'])
-        occur.extend(compo)
-        species = list(set(occur))
-    return((species))
+        species_list.extend(compo)
+        combinations.append(compo)
+    species_list = list(set(species_list))
+    return (species_list,combinations)
 
 def getSOAPforStruct(structure_tensor, species, rCut=3, nMax=12, Lmax=9):
     """

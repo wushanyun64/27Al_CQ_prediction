@@ -14,6 +14,9 @@ from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
 from sklearn.model_selection import train_test_split
 import math
 
+import seaborn as sns
+import matplotlib.pyplot as plt
+
 scores_list = ['cv_r2_mean','cv_RMSE_mean','cv_MAE_mean','train_r2','train_RMSE',
                 'train_MAE','test_r2','test_RMSE','test_MAE']
 
@@ -129,6 +132,9 @@ def features_gen(struc_tensor):
     for sample in tqdm(struc_tensor):
         try:
             NMR_struc = NMR_local(sample["structure"])
+            first_compo = pd.DataFrame.from_dict(
+                NMR_struc.get_first_coord_compo(),orient="index"
+            )
             first_bond_length = pd.DataFrame.from_dict(
                 NMR_struc.get_first_bond_length(), orient="index"
             )
@@ -154,6 +160,7 @@ def features_gen(struc_tensor):
             nmr["CQ"] = abs(nmr["CQ"])  # Get absolute values for all the CQ
             sample_table = pd.concat(
                 [
+                    first_compo,
                     nmr,
                     first_bond_length["fbl_average"],
                     first_bond_length["fbl_std"],
@@ -183,6 +190,8 @@ def features_gen(struc_tensor):
         f"There are {len(error_list)} structures returns error. Their index are {error_list}"
     )
     print("error_messages:\n", error_message)
+    #get rid of nmr tensors for symmetrically equal sites. 
+    table = table[pd.notna(table['fbl_average'])]
     return table
 
 def get_composition(structure):
@@ -193,3 +202,27 @@ def get_composition(structure):
     for site in structure.sites:
         atom_list.append(site.specie.symbol)
     return (list(set(atom_list)))
+
+def reg_plot(y,yhat,y_name,yhat_name):
+    result = {}
+    result["y"] = y
+    result["yhat"] = yhat
+    result = pd.DataFrame(result)
+
+    result = result.rename(columns={'y':y_name,'yhat':yhat_name})
+
+    print(result.columns)
+
+    #plot the correlation
+    sns.set_style("ticks")
+    plt.figure(figsize = (10,8))
+    plt.rcParams['font.size'] = '20'
+    sns.regplot(
+        x=y_name,
+        y=yhat_name,
+        data=result,
+        ci=None,
+        scatter_kws={"color": "black"}, 
+        line_kws={"color": "red"})
+    sns.despine()
+    plt.show()

@@ -7,6 +7,7 @@ from pymatgen.analysis.local_env import CrystalNN
 from pymatgen.analysis.local_env import NearNeighbors
 from pymatgen.util.coord import get_angle
 from pymatgen.analysis.bond_valence import BVAnalyzer
+from pymatgen.symmetry.analyzer import SpacegroupAnalyzer
 import numpy as np
 import itertools
 import statistics
@@ -114,7 +115,7 @@ class NMR_local:
 
     def _get_atom_list(self, structure):
         """
-        Get the site index list of the atom of interest ('Al' in our case)
+        Get the site index list of the atom of interest. (27Al in our case)
 
         Parameter
         -------------------
@@ -127,12 +128,14 @@ class NMR_local:
             A list of the index number for all the atom of interest in the structure.
 
         """
-        index = 0
         index_list = []
-        for site in structure:
-            if site.specie.symbol == self._atom:
-                index_list.append(index)
-            index += 1
+        symm_struc_analysis = SpacegroupAnalyzer(structure,symprec=0.1)
+        symm_struc =  symm_struc_analysis.get_symmetrized_structure()
+        equi_inds = symm_struc.equivalent_indices
+        for inds in equi_inds:
+            index = inds[0]
+            if symm_struc[index].specie.symbol == self._atom:
+                index_list.extend(inds)
         return index_list
 
     def get_first_coord(self):
@@ -150,6 +153,17 @@ class NMR_local:
             nn_info = crystalnn.get_nn_info(self.structure, index)
             first_coord_dict[index] = nn_info
         return first_coord_dict
+    
+    def get_first_coord_compo(self):
+        '''
+        Create a dict of first neighbors composition for each atom of interest. 
+        '''
+        first_compo_dict = {}
+        for i, neighbours in self.first_neighbours.items():
+
+            first_compo_dict[i]={'composition':[site['site'].species.elements[0].symbol for site in neighbours]}
+
+        return first_compo_dict
 
     def get_first_bond_length(self):
         """
