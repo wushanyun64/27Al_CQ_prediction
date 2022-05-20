@@ -3,59 +3,30 @@ default_language_version:
 default_stages: [commit, push, manual]
 repos:
   - repo: https://github.com/ambv/black
-    rev: 21.8b0
+    rev: 22.3.0
     hooks:
-      - id: black
-        name: black
-        description: "Black: The uncompromising Python code formatter"
-        entry: black
-        language: python
-        minimum_pre_commit_version: 2.9.2
-        require_serial: true
-        types_or: [python, pyi]
       - id: black-jupyter
-        name: black-jupyter
-        description:
-          "Black: The uncompromising Python code formatter (with Jupyter Notebook support)"
-        entry: black
-        language: python
-        minimum_pre_commit_version: 2.9.2
-        require_serial: true
-        types_or: [python, pyi, jupyter]
-        additional_dependencies: [".[jupyter]"]
-
+        language_version: python3.8
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
       - id: check-yaml
-        language: python
       - id: fix-encoding-pragma
-        language: python
       - id: check-docstring-first
-        language: python
+      - id: check-added-large-files
+        args: [--maxkb=10000]
       - id: end-of-file-fixer
-        language: python
-        exclude: docs/notebooks/
       - id: trailing-whitespace
-        language: python
-        types: [text]
-      - id: debug-statements
-        name: Debug Statements (Python)
-        description: Check for debugger imports and py37+ `breakpoint()` calls in python source.
-        entry: debug-statement-hook
-        language: python
-        types: [python]
 
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: "3.9.2"
+  - repo: https://github.com/s-weigand/flake8-nb
+    rev: v0.4.0
     hooks:
-      - id: flake8
-        language: python
+      - id: flake8-nb
         args:
           [
-            "--ignore=E402",
-            "--filename=*.pyx, *py",
-            "--max-line-length=100",
+            "--ignore=E402,E501,W503,C901",
+            "--filename=*py,*ipynb",
+            "--exclude=code_grave_yard.ipynb",
             "--max-complexity=8",
             "--select=B,C,E,F,W,T,N8",
             "--count",
@@ -68,8 +39,3 @@ repos:
       - id: reorder-python-imports
         name: Reorder python imports
         description: This hook reorders imports in python files.
-        entry: reorder-python-imports
-        language: python
-        types: [python]
-        minimum_pre_commit_version: "0.15.0"
-        exclude: (examples_source|fitting_source|setup.py)

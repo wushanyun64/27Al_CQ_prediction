@@ -30,6 +30,7 @@ def apply_filters(structure_tensors, filters):
         structure_tensors_filtered = filter(structure_tensors_filtered)
     return structure_tensors_filtered
 
+
 def add_oxi_state_by_guess(structure_tensors):
     """
     Get the oxidation state for each structure in structure_tensors obj with add_oxidation_state_by_guess()
@@ -38,8 +39,9 @@ def add_oxi_state_by_guess(structure_tensors):
     """
     print("Add oxidation state by guess.")
     for sample in tqdm(structure_tensors):
-        sample['structure'].add_oxidation_state_by_guess()
-    return(structure_tensors)
+        sample["structure"].add_oxidation_state_by_guess()
+    return structure_tensors
+
 
 def get_n_coord_tensors(structure_tensors, coord=[4, 5, 6]):
     """
@@ -83,7 +85,7 @@ def append_coord_num(structure_tensors):
     --------------------------
     structures_tensors: list
         The list of structures and tensors data.
-    **kwargs: 
+    **kwargs:
         Additional keywords passed to NMR_local
     Return
     -------------------------

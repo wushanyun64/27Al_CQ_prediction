@@ -4,7 +4,6 @@ __email__ = "wushanyun64@gmail.com"
 
 from tqdm import tqdm
 from pymatgen.core.structure import Structure as ST
-from pymatgen.core.sites import Site
 from pymatgen.analysis.nmr import ChemicalShielding
 from pymatgen.analysis.nmr import ElectricFieldGradient
 import numpy as np
@@ -35,7 +34,7 @@ def get_structure_tensors(data):
         data (list): list of data containing structure and NMR raw tensor.
     """
     compounds = []
-    structure_index=0
+    structure_index = 0
     for compound in tqdm(data, position=0):
         if compound == {}:
             continue
@@ -44,7 +43,6 @@ def get_structure_tensors(data):
         structure = ST.from_dict(compound["structure"])
 
         for site in structure.sites:
-            lengthes = []
             if site.species_string[:2] == "Al":
                 # add nmr tensor informations
                 cs_origin = compound["cs"][site_index]
@@ -60,11 +58,11 @@ def get_structure_tensors(data):
                     "etaQ": efg.asymmetry,
                     "CQ": efg.coupling_constant(specie="Al"),
                     "site_index": site_index,
-                    "structure_index":structure_index,
+                    "structure_index": structure_index,
                     "site_coord": list(site.coords),
                 }
                 tensors.append(tensor)
             site_index += 1
-        structure_index+=1
+        structure_index += 1
         compounds.append({"structure": structure, "tensors": tensors})
     return compounds
