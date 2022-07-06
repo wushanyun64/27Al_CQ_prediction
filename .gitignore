@@ -1,3 +1,4 @@
 # ignore cached sparse matrix produced by SOAP.
 *.npz
-code_grave_yard.ipynb
+code_grave.ipynb
+Example_model_training_private.ipynb

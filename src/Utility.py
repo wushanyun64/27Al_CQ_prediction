@@ -152,6 +152,9 @@ def features_gen(struc_tensor):
     for sample in tqdm(struc_tensor):
         try:
             NMR_struc = NMR_local(sample["structure"])
+            atom_combo = pd.DataFrame.from_dict(
+                NMR_struc.get_atom_combination_string(), orient="index"
+            )
             first_compo = pd.DataFrame.from_dict(
                 NMR_struc.get_first_coord_compo(), orient="index"
             )
@@ -173,13 +176,16 @@ def features_gen(struc_tensor):
                 NMR_struc.get_DI(), orient="index", columns=["DI"]
             )
             alchemical_features = pd.DataFrame.from_dict(
-                NMR_struc.get_species_features(), orient="index"
+                NMR_struc.get_species_features(),
+                orient="index",
+                columns=list(map(str, range(120))),
             )
             nmr = pd.DataFrame(sample["tensors"]).set_index("site_index")
             nmr = nmr.loc[:, ["max_ce", "structure_index", "diso", "etaQ", "CQ"]]
             nmr["CQ"] = abs(nmr["CQ"])  # Get absolute values for all the CQ
             sample_table = pd.concat(
                 [
+                    atom_combo,
                     first_compo,
                     nmr,
                     first_bond_length["fbl_average"],

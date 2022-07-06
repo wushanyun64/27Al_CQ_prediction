@@ -168,6 +168,26 @@ class NMR_local:
 
         return first_compo_dict
 
+    def get_atom_combination_string(self):
+        """
+        Create a dict of first neighbors atomic combination string (ex. 'O_Cl') for each atom
+        of interest.
+        """
+        compo = self.get_first_coord_compo()
+
+        combination_dict = {}
+
+        for index in compo.keys():
+            combo_str = ""
+            atom_combo = list(set(compo[index]["composition"]))
+            for i, atom in enumerate(atom_combo):
+                if i + 1 < len(atom_combo):
+                    combo_str += atom + "_"
+                else:
+                    combo_str += atom
+            combination_dict[index] = {"atom_combination": combo_str}
+        return combination_dict
+
     def get_first_bond_length(self):
         """
         create a 2D table of the first order bond length for each atom of interest.
