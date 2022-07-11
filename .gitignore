@@ -2,3 +2,5 @@
 *.npz
 code_grave.ipynb
 Example_model_training_private.ipynb
+*.json
+*.csv
