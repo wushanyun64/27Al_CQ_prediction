@@ -3,7 +3,7 @@ __author__ = "He Sun"
 __email__ = "wushanyun64@gmail.com"
 import os
 from pymatgen.io.cif import CifWriter
-from src.local_features import NMR_local
+from src.features_gen import NMR_local
 import pandas as pd
 from tqdm import tqdm
 import numpy as np
@@ -141,86 +141,6 @@ def struc_to_cif(structure, filename):
     cifwriter.write_file(file_dir)
 
 
-def features_gen(struc_tensor):
-    """
-    Combine the NMR values and structural parameters into one table.
-    """
-    table = pd.DataFrame()
-    n = 0
-    error_list = []
-    error_message = []
-    for sample in tqdm(struc_tensor):
-        try:
-            NMR_struc = NMR_local(sample["structure"])
-            atom_combo = pd.DataFrame.from_dict(
-                NMR_struc.get_atom_combination_string(), orient="index"
-            )
-            first_compo = pd.DataFrame.from_dict(
-                NMR_struc.get_first_coord_compo(), orient="index"
-            )
-            first_bond_length = pd.DataFrame.from_dict(
-                NMR_struc.get_first_bond_length(), orient="index"
-            )
-            first_bond_angle = pd.DataFrame.from_dict(
-                NMR_struc.get_first_bond_angle(), orient="index"
-            )
-            # l_strain = pd.DataFrame.from_dict(
-            #     NMR_struc.get_longitudinal_strain(),
-            #     orient="index",
-            #     columns=["longitudinal_strain"],
-            # )
-            # s_strain = pd.DataFrame.from_dict(
-            #     NMR_struc.get_shear_strain(), orient="index", columns=["shear_strain"]
-            # )
-            di = pd.DataFrame.from_dict(
-                NMR_struc.get_DI(), orient="index", columns=["DI"]
-            )
-            alchemical_features = pd.DataFrame.from_dict(
-                NMR_struc.get_species_features(),
-                orient="index",
-                columns=list(map(str, range(120))),
-            )
-            nmr = pd.DataFrame(sample["tensors"]).set_index("site_index")
-            nmr = nmr.loc[:, ["max_ce", "structure_index", "diso", "etaQ", "CQ"]]
-            nmr["CQ"] = abs(nmr["CQ"])  # Get absolute values for all the CQ
-            sample_table = pd.concat(
-                [
-                    atom_combo,
-                    first_compo,
-                    nmr,
-                    first_bond_length["fbl_average"],
-                    first_bond_length["fbl_std"],
-                    first_bond_length["fbl_max"],
-                    first_bond_length["fbl_min"],
-                    first_bond_angle["fba_average"],
-                    first_bond_angle["fba_std"],
-                    first_bond_angle["fba_max"],
-                    first_bond_angle["fba_min"],
-                    # l_strain["longitudinal_strain"],
-                    # s_strain["shear_strain"],
-                    di["DI"],
-                    alchemical_features,
-                ],
-                axis=1,
-            )
-
-            if table.empty:
-                table = sample_table
-            else:
-                table = table.append(sample_table)
-        except Exception as e:
-            error_list.append(n)
-            error_message.append(e)
-        n += 1
-    print(
-        f"There are {len(error_list)} structures returns error. Their index are {error_list}"
-    )
-    print("error_messages:\n", error_message)
-    # get rid of nmr tensors for symmetrically equal sites.
-    table = table[pd.notna(table["fbl_average"])]
-    return table
-
-
 def get_composition(structure):
     """
     Get the atomic composition of a cetain structure
@@ -232,6 +152,21 @@ def get_composition(structure):
 
 
 def reg_plot(y, yhat, y_name, yhat_name):
+    """
+    Helper function that plots the correlation between y and yhat.
+
+    Parameters
+    -----------------------
+    y: array like
+        Original labels.
+    yhat: array like
+        Labels predicted by model.
+    y_name:str
+        Name for y in the plot.
+    yhat_name:str
+        Name for yhat in the plot.
+    """
+
     result = {}
     result["y"] = y
     result["yhat"] = yhat
@@ -255,3 +190,32 @@ def reg_plot(y, yhat, y_name, yhat_name):
     )
     sns.despine()
     plt.show()
+
+
+def bad_data_clean(data):
+    """
+    test if there's any structure dosen't contain the target atom ('Al') and
+    does not contain a structure section.
+
+    Parameters
+    -------------------------
+    data: dict
+        dict read from .json with both stucture and nmr tensor stored.
+
+    """
+    problem_compound = []
+    for compound in data:
+        if "structure" not in compound.keys():
+            problem_compound.append(compound)
+            continue
+        sites = []
+        for site in compound["structure"]["sites"]:
+            sites.append(site["label"])
+        if "Al" not in sites:
+            problem_compound.append(compound)
+    print("num of problem compound:", len(problem_compound))
+
+    for compound in problem_compound:
+        data.remove(compound)
+    print("len of none problematic data:", len(data))
+    return data
