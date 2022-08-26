@@ -47,7 +47,7 @@ $ conda activate myenv
 - Pull the repository from github:
 
 ```
-& git clone https://github.com/wushanyun64/27Al_CQ_prediction.git
+$ git clone https://github.com/wushanyun64/27Al_CQ_prediction.git
 ```
 - Install the dependencies from requirement.txt
 
@@ -58,7 +58,7 @@ $ pip install requirements.txt
 # Demonstration
 
 - previously trained model can be tested on the small demonstration data in `./example/` file,
-`cd` to the exmaple file and run ti see the result.
+`cd` to the exmaple file and run it to see the result.
 
 ```
 $ python example.py
