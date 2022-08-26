@@ -6,8 +6,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import xgboost
-from scipy.stats import randint
-from scipy.stats import uniform
+from imblearn.over_sampling import SMOTE
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
@@ -16,8 +15,78 @@ from sklearn.model_selection import RandomizedSearchCV
 
 from src.Utility import reg_plot
 
+STRATEGY = {
+    "O": 3929,
+    "F": 500,
+    "S": 500,
+    "Cl": 500,
+    "N": 500,
+    "N_O": 500,
+    "Se": 200,
+    "O_F": 200,
+    "Sb": 200,
+    "Te": 200,
+    "H": 200,
+    "Si": 200,
+    "Ge": 200,
+    "Pt": 200,
+    "I": 200,
+    "As": 200,
+    "Br": 200,
+    "Pd": 200,
+    "C": 200,
+    "O_Cl": 200,
+    "N_Cl": 200,
+    "P": 200,
+    "Rh": 200,
+    "N_C": 200,
+    "Au": 200,
+    "Si_Rh": 200,
+    "O_C": 200,
+    "Ge_Au": 200,
+    "Si_Pt": 200,
+    "Si_Au": 200,
+    "Ru": 200,
+    "Ga": 200,
+    "Al_Te": 200,
+    "N_Br": 50,
+    "Zr": 50,
+    "Ni": 50,
+    "Ir": 50,
+    "Bi": 50,
+    "N_O_C": 50,
+    "Zn": 50,
+    "Si_Ir": 50,
+    "I_Te": 50,
+    "Mg": 50,
+    "Li": 50,
+    "Ni_Ru": 50,
+    "P_C": 50,
+    "H_N": 50,
+    "S_Br": 50,
+    "Cs": 50,
+    "Pb": 50,
+}
 
-def model_train(X, y, model, param, n_iter=10, cv=10):
+
+def smote(X, y):
+    """
+    Helper function to run smote using predefined strategy.
+
+    Args:
+        X: array like
+        y: array like
+    """
+    train = pd.concat([X, y["CQ"]], axis=1)
+    label = y["atom_combination"]
+    over = SMOTE(sampling_strategy=STRATEGY, k_neighbors=1)
+    train, label = over.fit_resample(train, label)
+    y_train = pd.concat([train["CQ"], label], axis=1)
+    X_train = train.drop(columns=["CQ"])
+    return X_train, y_train
+
+
+def model_train(X, y, model, param, n_iter=10, cv=5):
     """
     A helper function that select the model's hyperparameters using
     RandomizedSearchCV from scikit-learn.
@@ -54,10 +123,11 @@ def model_train(X, y, model, param, n_iter=10, cv=10):
     grid = RandomizedSearchCV(
         estimator=model,
         param_distributions=param,
-        n_iter=10,
+        n_iter=n_iter,
         scoring=["neg_mean_absolute_error", "neg_mean_squared_error", "r2"],
         refit="r2",
-        cv=5,
+        cv=cv,
+        n_jobs=8,
     )
     grid.fit(X, y["CQ"])
 

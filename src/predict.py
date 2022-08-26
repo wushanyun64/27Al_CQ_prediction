@@ -4,6 +4,7 @@ import joblib
 from src.data.structure_tensors_gen import get_structure_tensor
 from src.data.structure_tensors_modifier import *
 from src.features_gen import concat_features_and_nmr
+from src.features_gen import table_clean
 
 
 class predict:
@@ -28,9 +29,9 @@ class predict:
         print("Loading structures")
         self.structure_tensors = []
         for compound in tqdm(structure_list):
-            structure = compound
-            efg = None
-            cs = None
+            structure = compound["structure"]
+            efg = compound["efg"]
+            cs = compound["cs"]
             structure_tensor = get_structure_tensor(structure, efg, cs)
             self.structure_tensors.append(structure_tensor)
 
@@ -42,18 +43,21 @@ class predict:
         features = self.feature_generation()
         if self.feat_type == "struc":
             x = features.loc[:, "fbl_average":"DI"]
+
         elif self.feat_type == "struc+ele":
             x = features.loc[:, "fbl_average":]
         else:
             raise ValueError(
                 """The feature_type should be either 'struc' or 'struc+ele'."""
             )
-        y = self.model.predict(x)
-        return y
+        y = features["CQ"].to_list()
+        y_pre = self.model.predict(x)
+        return y, y_pre
 
     def feature_generation(self):
         features = concat_features_and_nmr(self.structure_tensors)
         features.reset_index(drop=True, inplace=True)
+        features = table_clean(features)
         return features
 
     def prep(self):

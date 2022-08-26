@@ -125,6 +125,21 @@ def concat_features_and_nmr(struc_tensor):
 
     # add is_o column.
     table.insert(loc=0, column="is_O", value=table["atom_combination"].map(map_O))
+
+    return table
+
+
+def table_clean(table):
+    """
+    Clean the duplicates and local site with too less instance.
+    """
+    # drop duplicates
+    table.drop_duplicates(subset=["CQ"], inplace=True, ignore_index=True)
+    # atomic combinations that have only 1 instance
+    combo_counts = table.atom_combination.value_counts()
+    drop_combos = combo_counts[combo_counts == 1].index
+    drop_index = table[table["atom_combination"].isin(drop_combos)].index
+    table.drop(drop_index, inplace=True)
     return table
 
 

@@ -88,6 +88,7 @@ target/
 # Mypy cache
 .mypy_cache/
 
-# Other unwanted files
+# Other deprecated codes
 Example_model_training_private.ipynb
 Training_workflow.ipynb
+Al_NMR_gen.ipynb

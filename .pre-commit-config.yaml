@@ -14,24 +14,24 @@ repos:
       - id: fix-encoding-pragma
       - id: check-docstring-first
       - id: check-added-large-files
-        args: [--maxkb=10000]
+        args: [--maxkb=300000]
       - id: end-of-file-fixer
       - id: trailing-whitespace
 
-  # - repo: https://github.com/s-weigand/flake8-nb
-  #   rev: v0.4.0
-  #   hooks:
-  #     - id: flake8-nb
-  #       args:
-  #         [
-  #           "--ignore=E402,E501,W503,C901,E712",
-  #           "--filename=*py,*ipynb",
-  #           "--exclude=code_grave_yard.ipynb",
-  #           "--max-complexity=8",
-  #           "--select=B,C,E,F,W,T,N8",
-  #           "--count",
-  #           "--statistics",
-  #         ]
+  - repo: https://github.com/s-weigand/flake8-nb
+    rev: v0.4.0
+    hooks:
+      - id: flake8-nb
+        args:
+          [
+            "--ignore=E402,E501,W503,C901,E712,F405,F403",
+            "--filename=*py,*ipynb",
+            "--exclude=code_grave_yard.ipynb",
+            "--max-complexity=8",
+            "--select=B,C,E,F,W,T,N8",
+            "--count",
+            "--statistics",
+          ]
 
   - repo: https://github.com/asottile/reorder_python_imports
     rev: v2.6.0
