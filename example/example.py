@@ -12,7 +12,7 @@ with open("../example/example_data.json", "r") as file:
     data = json.load(file)
     print("length of file is {}".format(len(data)))
 
-pre = predict("struc+ele.pkl", "struc+ele", data)
+pre = predict("xgboost.pkl", "struc+ele", data)
 y_vasp, y_pre = pre.model_predict()
 
 print("\n")
