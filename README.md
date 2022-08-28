@@ -57,14 +57,14 @@ $ pip install requirements.txt
 
 # Demonstration
 
-previously trained model can be tested on a small demonstration dataset (20 structures)
+Previously trained example model can be tested on a small demonstration dataset (20 structures)
 in `./example/` file, `cd` to the example file and run it to see the result.
 
 ```
 $ python example.py
 ```
 
-- Users are also encouraged to modify the example.py file for their own needs.
+- Users are also encouraged to modify `example.py` for their own needs.
 
 - To fully explore the total training process, please refer to the `notebooks`.
 
